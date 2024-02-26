@@ -196,9 +196,9 @@ data.frame(LET = as.numeric(unique(df_$LET)), RBE = rbe) %>%
 
 df_RBE <- data.frame(LET = as.numeric(unique(df_$LET)), RBE = rbe, Type = "Original")
 
-err <- 1
+err <- 0.1
 
-ion <- "C"
+ion <- "H"
 df_ <- df_plot2 %>% filter(Type == "LQ" & Ion %in% c("X",ion))
 
 df_$Dose[which(as.numeric(df_$LET) > 12)] <- df_$Dose[which(as.numeric(df_$LET) > 12)]*(1 + err)
