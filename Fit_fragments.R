@@ -60,7 +60,7 @@ domain_size_cell<-c(5,6,7,8)
 radius<-c("SPECTRA_8um")
 
 # DEFINISCO IL VETTORE PER CICLARE SULLE COLONNE
-coloumn<-as.character(1:12)
+coloumn<-paste0("C",as.character(1:12))
 
 # CARICO I DATI BIOLOGICI
 #load("/home/user/Scrivania/TESI/Codici_R/Survival_CORRECTED.RData")
@@ -243,6 +243,8 @@ for (Rn in domain_size_cell) {
     if(plot_hist){
       h$H %>% 
         ggplot(aes(x,ydy)) + geom_line() + scale_x_log10()
+        #setwd()
+        #ggsave()
     }
     
     hist <- h$hist
