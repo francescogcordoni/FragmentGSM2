@@ -152,14 +152,14 @@ file<-coloumn[1]
 if(file=="10"){
   #x_<-fread(paste0("/home/giulio.bordieri/GSM2_fit/Fragmentation_protons/PMMA_",as.character(file),"/Spectra/Scorer_",as.character(file),"_8um.phsp"))
   #load("/home/user/Scrivania/Dottorato/Micro_spectra_fragmentation/Fragmentation_protons/Spectra/PMMA_10/Spectrum_08um.RData")
-	  for (i in Nspectra_start:Nspectra_end) {
+	for (i in Nspectra_start:Nspectra_end) {
 	  name <- paste0("/home/giulio.bordieri/GSM2_fit/Fragmentation_protons/PMMA_10/Scorers_spectra/Scorer_",as.character(i),"_08um.phsp")
 	  if(i == Nspectra_start){
 	    x_08um <- fread(name)
 	  }else{
 	    x_1 <- fread(name)
 	    x_08um <- rbind(x_08um,x_1)
-	    }
+	  }
 	}
 }
 #setwd("/home/giulio.bordieri/GSM2_fit/KAPPA_PARTRAC/Protons_3e8")
