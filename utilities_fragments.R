@@ -270,3 +270,14 @@ get_fn_single <- function(i, df=df, zn=zn, zF_s=zF_s){
   }
 }
 
+get_fn_fix <- function(i, df=df, nu_sample=nu_sample){
+  
+  nu_sample
+  
+  if(nu_sample>0){
+    z_sample <- sum(sample(df$z, size = nu_sample, replace = TRUE, prob = df$zfz))
+  }else{
+    z_sample<-df$z[1]
+  }
+}
+
