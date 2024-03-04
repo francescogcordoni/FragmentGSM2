@@ -151,8 +151,8 @@ for (i in 1:length(data_1)) {
 }
 
 df_plot2 <- df_plot2 %>% mutate(Exp = paste0(Ion,"-",LET))
-
-p2 <- df_plot2 %>% subset(Ion %in% c("X","H") & Dose < 5) %>% 
+ion <- "C"
+p2 <- df_plot2 %>% subset(Ion %in% c("X",ion) & Dose < 5 & Type == "LQ") %>% 
   ggplot(aes(Dose,SF, color = Exp, linetype = Type))+
   geom_line(linewidth = 1) + scale_y_log10() + 
   scale_color_manual(values = c25)
@@ -180,19 +180,24 @@ calculate_RBE_single <- function(ax, bx, ai, bi, p){
   return(rbe)
 }
 
-ion <- "H"
+ion <- c("H","He","C")
 df_ <- df_plot2 %>% filter(Type == "LQ" & Ion %in% c("X",ion))
   
-rbe <- c()
+rbe <- c(); ion <- c()
 for (let in unique(df_$LET)) {
   x <- df_ %>% 
     filter(LET == let)
   
   rbe <- c(rbe,calculate_RBE(x, ax, bx, 0.1))
+  ion <- c(ion,x$Ion[1])
 }
 
-data.frame(LET = as.numeric(unique(df_$LET)), RBE = rbe) %>% 
-  ggplot(aes(LET,RBE)) + geom_point()
+pRBE <- data.frame(LET = as.numeric(unique(df_$LET))[-1], RBE = rbe[-1], ion = ion[-1]) %>% 
+  ggplot(aes(LET,RBE,color = ion)) +
+  scale_x_log10() +
+  geom_point(size = 1.5) +
+  scale_color_manual(values = cb_b)
+ggplotly(pRBE)
 
 df_RBE <- data.frame(LET = as.numeric(unique(df_$LET)), RBE = rbe, Type = "Original")
 
