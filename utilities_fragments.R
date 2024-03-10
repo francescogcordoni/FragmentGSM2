@@ -129,7 +129,7 @@ compute_kappa <- function(ion, damage_type, col_number){
     # KAPPA HELIUM IONS
     Kappa_helium<-c()
     for(counter in c(1:12)){
-      Kappa_helium<-c(Kappa_helium,(p1[2]+(p2[2]*as.numeric(energy_list_He[counter]))^p3[2])/(1+(p4[2]*as.numeric(energy_list_He[counter]))^p5[2]))
+      Kappa_helium<-c(Kappa_helium,(p1[2]+(p2[2]*as.numeric(energy_list[counter]))^p3[2])/(1+(p4[2]*as.numeric(energy_list[counter]))^p5[2]))
     }
     # Adjustment
     Kappa<-9*Kappa_helium
@@ -149,7 +149,7 @@ compute_kappa <- function(ion, damage_type, col_number){
     # KAPPA CARBON IONS
     Kappa_carbon<-c()
     for(counter in c(1:12)){
-      Kappa_carbon<-c(Kappa_carbon,(p1[3]+(p2[3]*as.numeric(energy_list_C[counter]))^p3[3])/(1+(p4[3]*as.numeric(energy_list_C[counter]))^p5[3]))
+      Kappa_carbon<-c(Kappa_carbon,(p1[3]+(p2[3]*as.numeric(energy_list[counter]))^p3[3])/(1+(p4[3]*as.numeric(energy_list[counter]))^p5[3]))
     }
     # Adjustment
     Kappa<-9*Kappa_carbon
