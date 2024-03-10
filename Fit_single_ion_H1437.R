@@ -297,18 +297,18 @@ for (rd in domain_size) {
     #r=2.714594
     
     # SCRIVO PARAMETRI OTTENUTI DA FIT PRECEDENTI PER PREDIRE (H1437)
-    #rd=0.45;
+    #rd=0.5;
     #Rn=8;
-    #a=0.003026402
-    #b=0.147680249
-    #r=2.951922
+    #a=0.01383
+    #b=0.009019
+    #r=2.9985
     
-    # From global fit
-    #rd=0.4;
-    #Rn=5;
-    #a=0.018889
-    #b=0.0030425
-    #r=3.0051
+    # From different global fit
+    rd=0.35;
+    Rn=8;
+    a=0.01868389
+    b=0.008360278
+    r=2.994288
     
     # stampa parametri
     print(paste0("a=", a))
@@ -457,8 +457,8 @@ rd_vec<-c()
 Rn_vec<-c()
 
 # DUE LINEE SUCCESSIVE PER SELEZIONARE VALORI rd ED Rn
-domain_size <- 0.4
-domain_size_cell <- 5
+domain_size <- 0.35
+domain_size_cell <- 8
 domain_size<-c(0.35,0.4,0.45,0.5,0.6,0.8,1)
 domain_size_cell<-c(5,6,7,8)
 # Customized sizes
