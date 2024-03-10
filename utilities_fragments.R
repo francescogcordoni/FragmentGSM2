@@ -51,62 +51,61 @@ compute_histogram_TOPAS_y <- function(tp){
   return(list(C = C, hist = H, zF = zF, zD = zD))
 }
 
-compute_kappa <- function(ion, damage_type){
+compute_kappa <- function(ion, damage_type, col_number){
   
+  if(damage_type == "DSB"){
+    p1 <- c(6.8,6.8,6.8)
+    p2 <- c(0.1835,0.1679,0.2052)
+    p3 <- c(0.9583,0.9704,1.02)
+    p4 <- c(0,0.004323,0.009922)
+    p5 <- c(0,1.359,1.106)
+  }else if(damage_type == "cDSB"){
+    p1 <- c(0.07,0.07,0.07)
+    p2 <- c(0.01532,0.01015,0.006858)
+    p3 <- c(2.396,1.794,1.498)
+    p4 <- c(0,0.003817,0.002778)
+    p5 <- c(0,3.255,2.208)
+  }else if(damage_type == "DSBsites"){
+    p1 <- c(6.8,6.8,6.8)
+    p2 <- c(0.1773,0.1471,0.156)
+    p3 <- c(0.9314,1.038,0.9214)
+    p4 <- c(0,0.006239,0.005245)
+    p5 <- c(0,1.582,1.395)
+  }else if(damage_type == "DSB_direct"){
+    p1 <- c(2.8,2.8,2.8)
+    p2 <- c(0.07011,0.08076,0.09374)
+    p3 <- c(1.231,0.816,1.076)
+    p4 <- c(0,0,0.01033)
+    p5 <- c(0,0,1.006)
+  }else if(damage_type == "DSB_indirect"){
+    p1 <- c(2.2,2.2,2.2)
+    p2 <- c(0.03598,0.02683,0.03152)
+    p3 <- c(0.5834,0.6349,0.6538)
+    p4 <- c(0,0.002725,0.002669)
+    p5 <- c(0,2.022,1.114)
+  }else if(damage_type == "DSBsites_direct"){
+    p1 <- c(2.8,2.8,2.8)
+    p2 <- c(0.06901,0.06555,0.06191)
+    p3 <- c(1.196,1.023,0.9903)
+    p4 <- c(0,0.003748,0.004525)
+    p5 <- c(0,1.763,1.369)
+  }else if(damage_type == "DSBsites_indirect"){
+    p1 <- c(2.2,2.2,2.2)
+    p2 <- c(0.035,0.02656,0.02946)
+    p3 <- c(0.5841,0.6415,0.6435)
+    p4 <- c(0,0.002875,0.002585)
+    p5 <- c(0,1.994,1.166)
+  }
+  
+  # PROTONS
   if(ion == "H"){
     # COMPUTE KAPPA VALUE
     LET_list <- c(1.23,7.08,11.0,13.1,14.0,15.5,17.2,18.2,19.3,20.3,21.8,22.7)
     yD_list <- c(4.99,5.53,6.71,9.75,11.4,14.2,17.2,19.0,20.7,22.1,24.2,25.7)
     
     fit <- lm(formula = LET_list[-c(1:2)] ~ yD_list[-c(1:2)])
-    
-    if(damage_type == "DSB"){
-      p1 <- c(6.8,6.8,6.8)
-      p2 <- c(0.1835,0.1679,0.2052)
-      p3 <- c(0.9583,0.9704,1.02)
-      p4 <- c(0,0.004323,0.009922)
-      p5 <- c(0,1.359,1.106)
-    }else if(damage_type == "cDSB"){
-      p1 <- c(0.07,0.07,0.07)
-      p2 <- c(0.01532,0.01015,0.006858)
-      p3 <- c(2.396,1.794,1.498)
-      p4 <- c(0,0.003817,0.002778)
-      p5 <- c(0,3.255,2.208)
-    }else if(damage_type == "DSBsites"){
-      p1 <- c(6.8,6.8,6.8)
-      p2 <- c(0.1773,0.1471,0.156)
-      p3 <- c(0.9314,1.038,0.9214)
-      p4 <- c(0,0.006239,0.005245)
-      p5 <- c(0,1.582,1.395)
-    }else if(damage_type == "DSB_direct"){
-      p1 <- c(2.8,2.8,2.8)
-      p2 <- c(0.07011,0.08076,0.09374)
-      p3 <- c(1.231,0.816,1.076)
-      p4 <- c(0,0,0.01033)
-      p5 <- c(0,0,1.006)
-    }else if(damage_type == "DSB_indirect"){
-      p1 <- c(2.2,2.2,2.2)
-      p2 <- c(0.03598,0.02683,0.03152)
-      p3 <- c(0.5834,0.6349,0.6538)
-      p4 <- c(0,0.002725,0.002669)
-      p5 <- c(0,2.022,1.114)
-    }else if(damage_type == "DSBsites_direct"){
-      p1 <- c(2.8,2.8,2.8)
-      p2 <- c(0.06901,0.06555,0.06191)
-      p3 <- c(1.196,1.023,0.9903)
-      p4 <- c(0,0.003748,0.004525)
-      p5 <- c(0,1.763,1.369)
-    }else if(damage_type == "DSBsites_indirect"){
-      p1 <- c(2.2,2.2,2.2)
-      p2 <- c(0.035,0.02656,0.02946)
-      p3 <- c(0.5841,0.6415,0.6435)
-      p4 <- c(0,0.002875,0.002585)
-      p5 <- c(0,1.994,1.166)
-    }  
-    
-    
     # Adjust Kappa 
-    energy_list[10] <- coefficients(fit)[1] + coefficients(fit)[2]*yD[[file]]
+    energy_list[col_number] <- coefficients(fit)[1] + coefficients(fit)[2]*yD[[file]]
     
     # KAPPA PROTONS
     Kappa_protons<-c()
@@ -115,6 +114,45 @@ compute_kappa <- function(ion, damage_type){
     }
     # Adjustment
     Kappa<-9*Kappa_protons
+  }
+  
+  # HELIUM IONS
+  if(ion == "He"){
+    # COMPUTE KAPPA VALUE
+    LET_list <- c(1.23,7.08,11.0,13.1,14.0,15.5,17.2,18.2,19.3,20.3,21.8,22.7)
+    yD_list <- c(12,17.5,21.8,32.1,47.4,56.3,66.4,74.2,82.3,88.2,93,93.9)
+    
+    fit <- lm(formula = LET_list[-c(1:2)] ~ yD_list[-c(1:2)])
+    # Adjust Kappa 
+    energy_list[col_number] <- coefficients(fit)[1] + coefficients(fit)[2]*yD[[file]]
+    
+    # KAPPA HELIUM IONS
+    Kappa_helium<-c()
+    for(counter in c(1:12)){
+      Kappa_helium<-c(Kappa_helium,(p1[2]+(p2[2]*as.numeric(energy_list_He[counter]))^p3[2])/(1+(p4[2]*as.numeric(energy_list_He[counter]))^p5[2]))
+    }
+    # Adjustment
+    Kappa<-9*Kappa_helium
+  }
+  
+  
+  # CARBON IONS
+  if(ion == "C"){
+    # COMPUTE KAPPA VALUE
+    LET_list <- c(21.3,55.3,65.1,66.0,66.4,66.0,64.2,60.5,53.7,39.6,28.3,25.0)
+    yD_list<-c(27.4,52.9,80.2,84.6,91.1,98.8,112.2,137.4,172,235.1,292.2,319.6)
+    
+    fit <- lm(formula = LET_list[-c(1:2)] ~ yD_list[-c(1:2)])
+    # Adjust Kappa 
+    energy_list[col_number] <- coefficients(fit)[1] + coefficients(fit)[2]*yD[[file]]
+    
+    # KAPPA CARBON IONS
+    Kappa_carbon<-c()
+    for(counter in c(1:12)){
+      Kappa_carbon<-c(Kappa_carbon,(p1[3]+(p2[3]*as.numeric(energy_list_C[counter]))^p3[3])/(1+(p4[3]*as.numeric(energy_list_C[counter]))^p5[3]))
+    }
+    # Adjustment
+    Kappa<-9*Kappa_carbon
   }
   
   return(Kappa)
