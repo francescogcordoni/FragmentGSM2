@@ -196,12 +196,12 @@ fit_SMKM <- function(x) {
     rbe <- c(rbe,rbe_mkm)
   }
   
-  err <- mean((abs(rbe-rbe_exp))/rbe_exp)
+  err <- sum((abs(rbe-rbe_exp))/rbe_exp)
   
   return(err)
 }
 
-result_<-optim(c(1,8),lower=c(0.00001,4),upper=c(5,15),fit_SMKM, method="L-BFGS-B")
+result_<-optim(c(1,7),lower=c(0.00001,4),upper=c(5,15),fit_SMKM, method="L-BFGS-B")
 
 (rd <- result_$par[1])
 (Rn <- result_$par[2])
@@ -225,9 +225,9 @@ predict_SMKM <- function(rd, Rn) {
   return(rbe)
 }
 
-result_<-optim(c(1),lower=c(0.00001),upper=c(5),Fit_MKM, method="L-BFGS-B")
+# result_<-optim(c(1),lower=c(0.00001),upper=c(5),Fit_MKM, method="L-BFGS-B")
 
-(rd <- result_$par[1])
+# (rd <- result_$par[1])
 
 predict_MKM <- function(rd) {
   p <- 0.1

@@ -69,8 +69,8 @@ LET_predetto <- coefficients(fit)[1] + coefficients(fit)[2]*yD
 
 # load("G:/Other computers/Il mio laptop/Francesco/Università/Articoli/Marta/GSM2/Validazione/Survival_all.RData")
 load("G:/Other computers/Il mio laptop/Francesco/Università/Articoli/Marta/GSM2/Validazione/Survival_all_noIntercept.RData")
-# cell_line <- "H460"
-cell_line <- "H1437"
+cell_line <- "H460"
+# cell_line <- "H1437"
 data <- survival[[cell_line]]
 
 if(cell_line == "H1437"){
@@ -107,9 +107,9 @@ for (i in 1:length(data_1)) {
 
 df_plot <- df_plot %>% mutate(Exp = paste0(Ion,"-",LET))
 
-p <- df_plot %>% subset(Ion %in% c("X","He") & Dose < 5) %>% 
+p <- df_plot %>% subset(Ion %in% c("X","H") & Dose < 5) %>% 
   ggplot(aes(Dose,SF, color = Exp, linetype = Type))+
-  geom_line(linewidth = 1) + scale_y_log10() + 
+  geom_line(linewidth = 1) + scale_y_log10() + geom_point() +
   scale_color_manual(values = c25)
 ggplotly(p)
 
@@ -241,3 +241,18 @@ p4 <- df_plot2 %>% subset(Ion %in% c("X","H") & Dose < 5 & Type == "LQ") %>%
   scale_color_manual(values = c25)
 ggplotly(p4)
   
+
+
+
+###Plot Joseph
+
+setwd("C:\\Users\\Utente\\Documents\\GitHub\\FragmentGSM2\\MDData\\Guan_fy\\dySpectrum_guan")
+
+df_md <- read.csv("dySpectrum_l.csv")
+colnames(df_md) <- c("y","yd(y)")
+
+p <- df_md %>% 
+  ggplot(aes(y,`yd(y)`)) + 
+  geom_line(linewidth = 1) +
+  scale_x_log10()
+ggplotly(p)
