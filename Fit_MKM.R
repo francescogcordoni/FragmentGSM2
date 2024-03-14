@@ -252,7 +252,8 @@ p <- data.frame(LET = as.numeric(unique(df_$LET))[-1],
                    yD = yD_list, ystar = ystar_list, Ion = ion[-1], 
                    RBE = rbe_exp, 
                    Type = "Exp")) %>% 
-  ggplot(aes(LET,RBE,color=Ion, shape = Type))+geom_point()+scale_x_log10()+
-  scale_color_manual(values = cb_b)
+  ggplot(aes(LET,RBE,color = Type))+geom_point()+scale_x_log10()+
+  scale_color_manual(values = cb_b) +
+  facet_wrap(~ Ion)
 ggplotly(p) 
 p
